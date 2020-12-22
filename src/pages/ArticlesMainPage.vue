@@ -1,7 +1,7 @@
 <template>
   <div class="articles-list-section">
     <navigation-bar></navigation-bar>
-    <div class="container">
+    <!-- <div class="container">
       <div
         v-for="article in articles"
         :key="`${article.name}`"
@@ -12,14 +12,14 @@
           <article-preview :article="article"></article-preview>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-const DATA = require("../../../server/database.json");
-import ArticlePreview from "../ArticlePreview/ArticlePreview.vue";
-import NavigationBar from "./components/layout/NavigationBar.vue";
+const DATA = require("../database.json");
+import ArticlePreview from "../components/articles/ArticlePreview.vue";
+import NavigationBar from "../components/layout/NavigationBar.vue";
 
 export default {
   name: "ArticlesMainPage",
@@ -43,6 +43,7 @@ export default {
 
   mounted() {
     this.articles = DATA.articles;
+    console.log(2)
   },
 };
 </script>

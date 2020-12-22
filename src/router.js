@@ -16,7 +16,7 @@ const router = createRouter({
     },
     { path: '/register', component: null },
     { path: '/requests', component: null }, */
-    { path: '/:notFound(.*)', component: null }
+    //{ path: '/:notFound(.*)', component: null }
   ]
 });
 
