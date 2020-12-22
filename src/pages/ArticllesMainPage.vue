@@ -22,7 +22,7 @@ import ArticlePreview from "../ArticlePreview/ArticlePreview.vue";
 import NavigationBar from "./components/layout/NavigationBar.vue";
 
 export default {
-  name: "ArticlesList",
+  name: "ArticlesMainPage",
   components: {
     ArticlePreview,
     NavigationBar

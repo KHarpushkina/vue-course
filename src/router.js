@@ -1,13 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
-
-
+import ArticlesMainPage from "./pages/ArticlesMainPage.vue"
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/', redirect: '/coaches' },
-    { path: '/coaches', component: null },
-    {
+    { path: '/', redirect: '/articles' },
+    { path: '/articles', component: ArticlesMainPage },
+  /*   {
       path: '/coaches/:id',
       component: null,
       props: true,
@@ -16,7 +15,7 @@ const router = createRouter({
       ]
     },
     { path: '/register', component: null },
-    { path: '/requests', component: null },
+    { path: '/requests', component: null }, */
     { path: '/:notFound(.*)', component: null }
   ]
 });
