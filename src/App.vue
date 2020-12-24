@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import gg from "./components/layout/NavigationBar.vue"
 export default {
   name: 'App',
   components: {}

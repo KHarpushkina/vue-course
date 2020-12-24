@@ -1,48 +1,89 @@
 <template>
     <nav class="navbar fixed-top navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Articles</a>
-        <div class="collapse navbar-collapse">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link 1</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link 2</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link 3</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link 4</a>
-            </li>
-          </ul>
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">Search</button>
-          <button class="btn nav-item">Sign In</button>
-          <button class="btn nav-item">Sign Up</button>
+        <div class="container">
+            <div>
+                <a class="navbar-brand" href="#">Articles</a>
+            </div>
+            <div>
+                <ul class="navbar-nav nav-list-links">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link 3</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link 4</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
+        <div class="container right-align-items">
+            <div>
+                <input
+                    class="form-control me-2"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                />
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-light" type="submit">
+                    Search
+                </button>
+                <button class="btn btn-outline-info">Sign In</button>
+                <button class="btn btn-outline-info">Sign Up</button>
+            </div>
+        </div>
     </nav>
 </template>
 
 <script>
 export default {
-  name: "ArticlesList",
-  data() {
-    return {};
-  },
+    name: "ArticlesList",
+    data() {
+        return {};
+    },
 
-  methods: {},
+    methods: {},
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss" rel="stylesheet/scss">
+.navbar {
+    display: flex;
+    flex-direction: row;
+    .container {
+        justify-content: start;
+        margin-right: 0;
+        margin-left: 0;
+        width: 50%;
+        div {
+            display: inline;
+        }
+        .navbar-nav {
+            flex-direction: row;
+            li {
+                margin: 0 10px;
+            }
+        }
+        .form-control {
+            width: auto;
+        }
+    }
+	.right-align-items {
+		justify-content: flex-end;
+        .nav-buttons button{
+            margin: 0 5px;
+        }
+	}
+}
+</style>

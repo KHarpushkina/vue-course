@@ -1,5 +1,6 @@
 <template>
   <div class="articles-list-section">
+    <navigation-bar></navigation-bar>
     <div class="container">
       <div
         v-for="article in articles"
@@ -18,11 +19,13 @@
 <script>
 const DATA = require("../database.json");
 import ArticlePreview from "../components/articles/ArticlePreview.vue";
+import NavigationBar from "../components/layout/NavigationBar.vue";
 
 export default {
   name: "ArticlesMainPage",
   components: {
-    ArticlePreview
+    ArticlePreview,
+    NavigationBar
   },
   data() {
     return {
