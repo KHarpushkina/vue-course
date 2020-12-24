@@ -36,9 +36,7 @@
                 />
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-light" type="submit">
-                    Search
-                </button>
+                <button class="btn btn-light">Search</button>
                 <button class="btn btn-outline-info">Sign In</button>
                 <button class="btn btn-outline-info">Sign Up</button>
             </div>
@@ -79,11 +77,11 @@ export default {
             width: auto;
         }
     }
-	.right-align-items {
-		justify-content: flex-end;
-        .nav-buttons button{
+    .right-align-items {
+        justify-content: flex-end;
+        .nav-buttons button {
             margin: 0 5px;
         }
-	}
+    }
 }
 </style>
