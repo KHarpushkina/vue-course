@@ -21,7 +21,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss" rel="stylesheet/scss">
 .articles-list-section {
     margin: 3rem;
     padding: 1rem;

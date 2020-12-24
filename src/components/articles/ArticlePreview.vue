@@ -10,10 +10,22 @@
         </div>
         <div class="row justify-content-end">
             <div class="col-2">
-                <button class="btn btn-outline-dark" :to="articleDetailsLink">
-                    Read more
-                    <font-awesome-icon icon="user-secret" />
-                </button>
+                <router-link
+                    :to="{
+                        name: 'article_details',
+                        params: {
+                            name: article.name
+                        },
+                    }"
+                >
+                    <button class="btn btn-outline-dark">
+                        <span class="read-more-text">Read more</span>
+                        <font-awesome-icon
+                            icon="long-arrow-alt-right"
+                            size="2x"
+                        ></font-awesome-icon>
+                    </button>
+                </router-link>
             </div>
         </div>
     </div>
@@ -33,11 +45,6 @@ export default {
             articles: [],
         };
     },
-    computed: {
-        articleDetailsLink() {
-            return this.$route.path + "/" + this.article.name;
-        },
-    },
     methods: {
         cutArticleContent(content) {
             let result = content.substring(0, 1000);
@@ -48,14 +55,13 @@ export default {
 };
 </script>
 
-<style scoped>
-.articles-list-section {
-    margin: 3rem;
-    padding: 1rem;
-}
-
+<style scoped lang="scss" rel="stylesheet/scss">
 .row {
     margin-bottom: 10px;
     padding: 1rem;
+}
+
+.read-more-text {
+    margin-right: 20px;
 }
 </style>

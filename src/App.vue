@@ -17,6 +17,6 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" rel="stylesheet/scss">
 @import "~bootstrap/dist/css/bootstrap.css";
 </style>
