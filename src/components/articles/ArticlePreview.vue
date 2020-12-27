@@ -21,8 +21,7 @@
                     <button class="btn btn-outline-dark">
                         <span class="read-more-text">Read more</span>
                         <font-awesome-icon
-                            icon="long-arrow-alt-right"
-                            size="2x"
+                            icon="chevron-right"
                         ></font-awesome-icon>
                     </button>
                 </router-link>

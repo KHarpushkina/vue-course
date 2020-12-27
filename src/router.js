@@ -6,7 +6,11 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: "/", redirect: "/articles" },
-        { path: "/articles", component: ArticlesMainPage },
+        {
+            name: "articles_main_page", 
+            path: "/articles", 
+            component: ArticlesMainPage 
+        },
         {
             name: "article_details",
             path: "/articles/:name",

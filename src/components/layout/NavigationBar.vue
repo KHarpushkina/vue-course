@@ -7,9 +7,11 @@
             <div>
                 <ul class="navbar-nav nav-list-links">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">
-                            Home
-                        </a>
+                        <router-link :to="{name: 'articles_main_page'}">
+                            <span class="nav-link active" aria-current="page">
+                                Home
+                            </span>
+                        </router-link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link 1</a>
@@ -71,6 +73,9 @@ export default {
             flex-direction: row;
             li {
                 margin: 0 10px;
+                a {
+                    text-decoration: none;
+                }
             }
         }
         .form-control {
