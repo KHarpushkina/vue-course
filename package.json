@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "dev": "babel src/server -d dist",
+    "start": "npm run dev && nodemon dist/server.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
@@ -13,8 +15,9 @@
     "@fortawesome/vue-fontawesome": "^3.0.0-3",
     "@popperjs/core": "^2.6.0",
     "bootstrap-icons": "^1.2.2",
-    "core-js": "^3.6.5",
+    "core-js": "^3.8.1",
     "cors": "^2.8.5",
+    "express": "^4.17.1",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.8",
     "sass": "^1.30.0",
@@ -24,14 +27,19 @@
     "vuex": "^3.6.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^10.1.0",
     "bootstrap": "^5.0.0-beta1",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0-0"
+    "eslint-plugin-vue": "^7.0.0-0",
+    "nodemon": "^2.0.6"
   },
   "eslintConfig": {
     "root": true,

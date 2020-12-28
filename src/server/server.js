@@ -1,7 +1,8 @@
-import * as express from "express";
-import * as mongoose from "mongoose";
-import * as cors from "cors";
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
 import Article from "./models/Article";
+import serverSetup from "./helpers/server-setup";
 
 const app = express();
 
@@ -25,9 +26,9 @@ app.use(express.json());
         }
         res.send({ status: "ok" });
     });
-};
+};*/
 
-app.get("/products", (req, res) => {
+app.get("/articles", (req, res) => {
     Product.find({}, (err, products) => {
         if (err) {
             res.send(err);
@@ -36,7 +37,27 @@ app.get("/products", (req, res) => {
     });
 });
 
-app.get("/cart", (req, res) => {
+app.post("/products/add", (req, res, next) => {
+    const id = mongoose.Types.ObjectId(req.body.productToAdd._id);
+    Product.findById(id, (err, product) => {
+        if (!product) {
+            return next(new Error("It seems there is no such product"));
+        }
+        for (let i = 0; i < req.body.count; i++) {
+            const newProductInCart = new ProductInCart({
+                _product: product.id
+            });
+            newProductInCart.save(errWhenSave => {
+                if (errWhenSave) {
+                    res.send(errWhenSave);
+                }
+            });
+        }
+        res.send({ status: "ok" });
+    });
+}); 
+
+/*app.get("/cart", (req, res) => {
     ProductInCart.find({})
         .populate("_product")
         .exec((err, productsInCart) => {
@@ -69,26 +90,7 @@ app.post("/cart/remove", (req, res, next) => {
     });
     removeProductsFromCart(res, next, idsToRemove);
 });
-
-app.post("/products/add", (req, res, next) => {
-    const id = mongoose.Types.ObjectId(req.body.productToAdd._id);
-    Product.findById(id, (err, product) => {
-        if (!product) {
-            return next(new Error("It seems there is no such product"));
-        }
-        for (let i = 0; i < req.body.count; i++) {
-            const newProductInCart = new ProductInCart({
-                _product: product.id
-            });
-            newProductInCart.save(errWhenSave => {
-                if (errWhenSave) {
-                    res.send(errWhenSave);
-                }
-            });
-        }
-        res.send({ status: "ok" });
-    });
-}); */
+*/
 
 app.use((err, req, res, next) => {
     res.status(500);
