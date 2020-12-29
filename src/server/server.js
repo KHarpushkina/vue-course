@@ -36,24 +36,12 @@ app.get("/articles", (req, res, next) => {
         .catch((err) => next(err));
 });
 
-app.post("/products/add", (req, res, next) => {
-    const id = mongoose.Types.ObjectId(req.body.productToAdd._id);
-    Product.findById(id, (err, product) => {
-        if (!product) {
-            return next(new Error("It seems there is no such product"));
-        }
-        for (let i = 0; i < req.body.count; i++) {
-            const newProductInCart = new ProductInCart({
-                _product: product.id,
-            });
-            newProductInCart.save((errWhenSave) => {
-                if (errWhenSave) {
-                    res.send(errWhenSave);
-                }
-            });
-        }
-        res.send({ status: "ok" });
-    });
+app.post("/create-article", (req, res, next) => {
+    const article = new Article(req.body.article);
+    serverSetup
+        .insertDocument(Article, article)
+        .then((response) => res.status(200).send(response))
+        .catch((err) => next(err)); F
 });
 
 /*app.get("/cart", (req, res) => {
