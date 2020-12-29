@@ -2,7 +2,7 @@ import { createApp } from "vue";
 
 import App from "./App.vue";
 import router from "./router.js";
-import store from "./store/index.js";
+import store from "./client/store/index.js";
 import fontAwesomeImport from "./imports/fontawesome-import.js";
 const app = createApp(App);
 

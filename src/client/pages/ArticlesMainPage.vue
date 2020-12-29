@@ -16,7 +16,7 @@
 </template>
 
 <script>
-const DATA = require("../database.json");
+const DATA = require("../../database.json");
 import ArticlePreview from "../components/articles/ArticlePreview.vue";
 
 export default {

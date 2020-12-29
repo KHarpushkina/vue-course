@@ -1,15 +1,13 @@
 module.exports = {
-    async getDocById(cloudantConnection, docId, collection) {
-        let result = await cloudantConnection.queryData(collection, {
-            _id: docId,
-        });
-        if (result && result.docs && result.docs.length > 0) {
-            return result.docs;
+    async getDocuments(model, selectors = {}, fields = null, options = {}) {
+        let result = await model.find(selectors, fields, options).exec();
+        if (result) {
+            return result;
         } else {
             throw new Error(
                 JSON.stringify({
                     status: 404,
-                    message: "Document " + docId + " not found",
+                    message: "No such documents in the database",
                 })
             );
         }
