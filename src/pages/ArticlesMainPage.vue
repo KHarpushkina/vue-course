@@ -37,7 +37,8 @@ export default {
             return result + "...";
         },
     },
-    mounted() {
+    mounted: async function() {
+		await this.$store.dispatch("articles/getArticles");
         this.articles = DATA.articles;
     },
 };

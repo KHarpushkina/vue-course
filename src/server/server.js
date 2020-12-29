@@ -8,12 +8,13 @@ const app = express();
 
 mongoose.connect(
     "mongodb+srv://db_admin:rc.if5642@articlesdb.iyt0b.mongodb.net/articles_database?retryWrites=true&w=majority",
-    { useNewUrlParser: true },
-    err => {
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    (err) => {
         app.listen(3000, () => {
             console.log("Connect");
         });
-    });
+    }
+);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -28,13 +29,11 @@ app.use(express.json());
     });
 };*/
 
-app.get("/articles", (req, res) => {
-    Product.find({}, (err, products) => {
-        if (err) {
-            res.send(err);
-        }
-        res.send(products);
-    });
+app.get("/articles", (req, res, next) => {
+    serverSetup
+        .getDocs(Article)
+        .then((response) => res.status(200).send(response))
+        .catch((err) => next(err));
 });
 
 app.post("/products/add", (req, res, next) => {
@@ -45,9 +44,9 @@ app.post("/products/add", (req, res, next) => {
         }
         for (let i = 0; i < req.body.count; i++) {
             const newProductInCart = new ProductInCart({
-                _product: product.id
+                _product: product.id,
             });
-            newProductInCart.save(errWhenSave => {
+            newProductInCart.save((errWhenSave) => {
                 if (errWhenSave) {
                     res.send(errWhenSave);
                 }
@@ -55,7 +54,7 @@ app.post("/products/add", (req, res, next) => {
         }
         res.send({ status: "ok" });
     });
-}); 
+});
 
 /*app.get("/cart", (req, res) => {
     ProductInCart.find({})
