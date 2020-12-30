@@ -14,7 +14,11 @@
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link 1</a>
+                        <router-link :to="{name: 'create_article'}">
+                            <span class="nav-link" aria-current="page">
+                                Create article
+                            </span>
+                        </router-link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link 2</a>

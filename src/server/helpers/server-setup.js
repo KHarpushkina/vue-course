@@ -14,8 +14,8 @@ module.exports = {
         }
     },
 
-    async insertDocument(model, document) {
-        let result = await Article.save();
+    async insertDocument(document) {
+        let result = await document.save();
         if (result) {
             return result;
         } else {

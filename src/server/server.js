@@ -39,9 +39,9 @@ app.get("/articles", (req, res, next) => {
 app.post("/create-article", (req, res, next) => {
     const article = new Article(req.body.article);
     serverSetup
-        .insertDocument(Article, article)
-        .then((response) => res.status(200).send(response))
-        .catch((err) => next(err)); F
+        .insertDocument(article)
+        .then((response) => res.send(response))
+        .catch((err) => next(err));
 });
 
 /*app.get("/cart", (req, res) => {
