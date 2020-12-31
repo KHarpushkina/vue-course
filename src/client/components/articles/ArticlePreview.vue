@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container shadow-sm bg-white rounded">
         <div class="row">
             <h3>{{ article.name }}</h3>
         </div>

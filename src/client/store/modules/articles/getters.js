@@ -1,5 +1,13 @@
+"use strict";
+
 export default {
-  coaches(state) {
-    return state.coaches;
-  }
+    getArticles(context) {
+        return context.articles;
+    },
+
+    /* getDimensions(context) {
+        return (source) => {
+            return context[source].dimensions;
+        };
+    } */
 };

@@ -1,4 +1,3 @@
-import Article from "../models/Article.js";
 module.exports = {
     async getDocuments(model, selectors = {}, fields = null, options = {}) {
         let result = await model.find(selectors, fields, options).exec();
