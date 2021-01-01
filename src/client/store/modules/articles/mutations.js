@@ -1,7 +1,9 @@
 "use strict";
 
 export default {
-  registerCoach(state, payload) {
-    state.coaches.push(payload);
-  }
+    setArticles(state, data) {
+        for (let i = 0; i < data.articles.length; i++) {
+            state.articles[data.articles[i].id] = data.articles[i];
+        }
+    },
 };

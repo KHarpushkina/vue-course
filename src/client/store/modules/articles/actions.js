@@ -5,7 +5,9 @@ export default {
     async getArticles(context, data) {
         try {
             let result = await requests.getArticles();
-            console.log(result);
+            context.commit("setArticles", {
+                articles: result.data,
+            });
         } catch (e) {
             console.log(e);
         }
