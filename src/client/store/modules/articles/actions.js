@@ -16,7 +16,31 @@ export default {
     async addArticle(context, data) {
         try {
             let result = await requests.addArticle(data.article);
-            console.log(result);
+            context.commit("addArticle", {
+                article: result.data,
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    },
+
+    async editArticle(context, data) {
+        try {
+            let result = await requests.addArticle(data.article);
+            context.commit("addArticle", {
+                article: result.data,
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    },
+
+    async deleteArticle(context, data) {
+        try {
+            let result = await requests.addArticle(data.article);
+            context.commit("addArticle", {
+                article: result.data,
+            });
         } catch (e) {
             console.log(e);
         }

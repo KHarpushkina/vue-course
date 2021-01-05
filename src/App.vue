@@ -22,7 +22,9 @@ export default {
 <style lang="scss" rel="stylesheet/scss">
 @import "~bootstrap/dist/css/bootstrap.css";
 .content-container {
-    margin: 3rem;
-    padding: 1rem;
+    margin: 84px;
+}
+.row {
+    padding: 12px 24px;
 }
 </style>

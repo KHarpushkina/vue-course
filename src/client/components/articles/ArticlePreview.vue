@@ -1,7 +1,7 @@
 <template>
     <div class="container shadow-sm bg-white rounded">
         <div class="row">
-            <h3>{{ article.name }}</h3>
+            <h3>{{ article.title }}</h3>
         </div>
         <div>
             <div class="row">
