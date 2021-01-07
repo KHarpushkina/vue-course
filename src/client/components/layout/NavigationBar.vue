@@ -7,14 +7,14 @@
             <div>
                 <ul class="navbar-nav nav-list-links">
                     <li class="nav-item">
-                        <router-link :to="{name: 'articles_main_page'}">
+                        <router-link :to="{ name: 'articles_main_page' }">
                             <span class="nav-link active" aria-current="page">
                                 Home
                             </span>
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link :to="{name: 'create_article'}">
+                        <router-link :to="{ name: 'create_article' }">
                             <span class="nav-link" aria-current="page">
                                 Create article
                             </span>
@@ -34,29 +34,36 @@
         </div>
         <div class="container right-align-items">
             <div>
-                <input
-                    class="form-control me-2"
-                    type="search"
-                    placeholder="Search"
-                    aria-label="Search"
-                />
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
             </div>
             <div class="nav-buttons">
                 <button class="btn btn-light">Search</button>
-                <button class="btn btn-outline-info">Sign In</button>
-                <button class="btn btn-outline-info">Sign Up</button>
+                <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#login-modal">
+                    Sign In
+                </button>
+                <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#registration-modal">
+                    Sign Up
+                </button>
             </div>
         </div>
     </nav>
+    <registration-modal></registration-modal>
+    <login-modal></login-modal>
 </template>
 
 <script>
+import RegistrationModal from "../../components/login/RegistrationModal.vue";
+import LoginModal from "../../components/login/LoginModal.vue";
+
 export default {
     name: "ArticlesList",
+    components: {
+        RegistrationModal,
+        LoginModal,
+    },
     data() {
         return {};
     },
-
     methods: {},
 };
 </script>

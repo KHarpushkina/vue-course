@@ -53,7 +53,7 @@
                         ></textarea>
                     </div>
                 </div>
-                <div class="row justify-content-end">
+                <div class="row bottom-buttons-row justify-content-end border-top">
                     <div class="col-4 buttons-controls">
                         <button class="btn btn-outline-secondary btn-lg" type="button" @click="closeEditing">
                             Close
@@ -109,11 +109,8 @@ export default {
 <style scoped lang="scss" rel="stylesheet/scss">
 .buttons-controls {
     button {
-        &:first-child {
-            margin-right: 4%;
-        }
         min-width: 84px;
-        width: 48%;
+        width: 50%;
     }
 }
 </style>
