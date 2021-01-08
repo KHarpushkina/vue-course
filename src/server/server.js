@@ -4,15 +4,14 @@ import cors from "cors";
 import Article from "./models/Article";
 import serverSetup from "./helpers/server-setup";
 
-const app = express();
-const RSA_PRIVATE_KEY = fs.readFileSync(__dirname + '/keys/jwtRS256.key');
-const RSA_PUBLIC_KEY = fs.readFileSync(__dirname + '/keys/jwtRS256.key.pub');
+require("dotenv").config();
 
+const app = express();
 mongoose.connect(
-    "mongodb+srv://db_admin:rc.if5642@articlesdb.iyt0b.mongodb.net/articles_database?retryWrites=true&w=majority",
+    process.env.MONGODB_CONNECTION_LINK,
     { useNewUrlParser: true, useUnifiedTopology: true },
-    (err) => {
-        app.listen(3000, () => {
+    () => {
+        app.listen(process.env.APP_PORT, () => {
             console.log("Connect");
         });
     }

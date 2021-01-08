@@ -1,7 +1,7 @@
 "use strict";
 
 import jwt from "jsonwebtoken";
-const RSA_PUBLIC_KEY = fs.readFileSync(__dirname + '/keys/jwtRS256.key.pub');
+const RSA_PUBLIC_KEY = process.env.RSA_PUBLIC_KEY;
 
 module.exports = {
     ensureAuthenticated(req, res, next) {
