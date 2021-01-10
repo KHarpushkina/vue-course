@@ -1,4 +1,25 @@
+import User from "../models/User.js"
+
 module.exports = {
+
+    checkUser(id, res, callback) {
+        User.findOne({ _id: id }, (err, user) => {
+            if (err) {
+                res.send(err);
+            } else {
+                if (!user) {
+                    throw new Error(
+                        JSON.stringify({
+                            status: 401,
+                            message: "Please provide valid email and password",
+                        })
+                    );
+                }
+                callback();
+            }
+        });
+    },
+
     async getDocuments(model, selectors = {}, fields = null, options = {}) {
         let result = await model.find(selectors, fields, options).exec();
         if (result) {
