@@ -3,12 +3,12 @@ node_modules
 /dist
 /keys
 
+# dotenv environment variables file
+.env
+
 # local env files
 .env.local
 .env.*.local
-
-# dotenv environment variables file
-.env
 
 # Log files
 npm-debug.log*
