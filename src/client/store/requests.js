@@ -10,6 +10,12 @@ export default {
         });
     },
 
+    loginUser(user) {
+        return axios.post(serverURL + "/login", {
+            user,
+        });
+    },
+
     getArticles() {
         return axios.get(serverURL + "/articles");
     },

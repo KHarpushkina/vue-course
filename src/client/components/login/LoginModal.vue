@@ -16,16 +16,16 @@
                 <div class="modal-body">
                     <div class="row">
                         <label for="email" class="form-label">Email Address</label>
-                        <input type="text" id="email" class="form-control" />
+                        <input type="text" id="email" class="form-control" v-model="loginInfo.email" />
                     </div>
                     <div class="row border-top">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" id="password" class="form-control" />
+                        <input type="password" id="password" class="form-control" v-model="loginInfo.password" />
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Sign In</button>
+                    <button type="button" class="btn btn-primary" @click="login">Sign In</button>
                 </div>
             </div>
         </div>
@@ -37,11 +37,25 @@ export default {
     name: "LoginPage",
     components: {},
     data() {
-        return {};
+        return {
+            loginInfo: {
+                email: "",
+                password: ""
+            }
+        };
     },
     computed: {},
-    methods: {},
-    mounted: async function() {},
+    methods: {
+        login: async function() {
+            try {
+                await this.$store.dispatch("auth/loginUser", {
+                    user: this.loginInfo,
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    },
 };
 </script>
 

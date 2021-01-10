@@ -8,5 +8,13 @@ export default {
         } catch (e) {
             console.log(e);
         }
-    }
+    },
+
+    async loginUser(context, data) {
+        try {
+            await requests.loginUser(data.user);
+        } catch (e) {
+            console.log(e);
+        }
+    },
 };

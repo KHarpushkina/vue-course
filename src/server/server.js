@@ -1,9 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+
 import Article from "./models/Article.js";
 import serverSetup from "./helpers/server-setup.js";
 import middleware from "./helpers/middleware.js";
+import User from "./models/User.js";
 
 require("dotenv").config();
 
@@ -22,8 +26,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
 
-/* app.post('/authentication', (req, res, next) => {
-    User.findOne({ name: req.body.name }, (err, user) => {
+app.post('/login', (req, res, next) => {
+    User.findOne({ email: req.body.user.email }, (err, user) => {
         if (err) {
             res.send(err);
         }
@@ -31,12 +35,12 @@ app.use(express.json());
             res.status(401);
             return next(new Error('Please provide valid email and password'));
         }
-        bcrypt.compare(req.body.password, user.password, (errWhenHash, result) => {
+        bcrypt.compare(req.body.user.password, user.password, (errWhenHash, result) => {
             if (!result) {
                 res.status(401);
                 return next(new Error('Please provide valid email and password'));
             } else {
-                const jwtToken = jwt.sign({}, RSA_PRIVATE_KEY, {
+                const jwtToken = jwt.sign({}, process.env.RSA_PRIVATE_KEY, {
                     algorithm: 'RS256',
                     expiresIn: 600,
                     subject: '' + user._id
@@ -44,8 +48,7 @@ app.use(express.json());
                 res.status(200).send({
                     signed_user: {
                         _id: user._id,
-                        name: user.name,
-                        role: user.role
+                        email: user.email
                     },
                     expiresIn: 600,
                     token: jwtToken
@@ -55,9 +58,10 @@ app.use(express.json());
     });
 });
 
-app.use(checkToken); */
+//app.use(checkToken);
 
 app.get("/articles", (req, res, next) => {
+    console.log(req)
     serverSetup.checkUser(req.decoded.sub, res, () => {
         serverSetup
             .getDocuments(Article)
@@ -76,11 +80,14 @@ app.post("/create-article", (req, res, next) => {
 
 
 app.post("/create-user", (req, res, next) => {
-    const user = new User(req.body.user);
-    serverSetup
+    let user = new User(req.body.user);
+    bcrypt.hash(req.body.user.password, 10, function(err, hash) {
+        user.password = hash;
+        serverSetup
         .insertDocument(user)
         .then((response) => res.send(response))
         .catch((err) => next(err));
+    });
 });
 
 /*app.get("/cart", (req, res) => {

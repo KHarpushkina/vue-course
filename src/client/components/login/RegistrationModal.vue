@@ -14,7 +14,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row border-top">
+                    <div class="row">
                         <label for="first-name" class="form-label">First Name</label>
                         <input type="text" id="first-name" class="form-control" v-model="newUser.first_name" />
                     </div>
@@ -22,13 +22,18 @@
                         <label for="last-name" class="form-label">Last Name</label>
                         <input type="text" id="last-name" class="form-control" v-model="newUser.last_name" />
                     </div>
-                    <div class="row">
+                    <div class="row border-top">
                         <label for="registration-emai" class="form-label">Email Address</label>
                         <input type="text" id="registration-email" class="form-control" v-model="newUser.email" />
                     </div>
                     <div class="row border-top">
                         <label for="registration-password" class="form-label">Password</label>
-                        <input type="password" id="registration-password" class="form-control" v-model="newUser.email" />
+                        <input
+                            type="password"
+                            id="registration-password"
+                            class="form-control"
+                            v-model="newUser.password"
+                        />
                     </div>
                     <div class="row border-top">
                         <label for="repeat-password" class="form-label">Repeat Password</label>
@@ -55,7 +60,7 @@ export default {
                 last_name: "",
                 email: "",
                 password: "",
-            }
+            },
         };
     },
     computed: {},
@@ -66,16 +71,16 @@ export default {
                     user: this.newUser,
                 });
             } catch (e) {
-                console.log(e)
+                console.log(e);
             }
-        }
-    },
-    mounted: async function() {},
+        },
+    }
 };
 </script>
 
 <style scoped lang="scss" rel="stylesheet/scss">
-.modal-footer, .modal-header {
-  justify-content: center;
+.modal-footer,
+.modal-header {
+    justify-content: center;
 }
 </style>
