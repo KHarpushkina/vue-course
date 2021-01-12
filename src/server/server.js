@@ -58,7 +58,7 @@ app.post('/login', (req, res, next) => {
     });
 });
 
-//app.use(checkToken);
+app.use(middleware.ensureAuthenticated);
 
 app.get("/articles", (req, res, next) => {
     console.log(req)

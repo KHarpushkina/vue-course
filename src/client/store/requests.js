@@ -2,6 +2,7 @@
 
 import axios from "axios";
 const serverURL = "http://localhost:3000";
+const idToken = this.$store.getters["auth/getTokenId"];
 
 export default {
     addUser(user) {
@@ -17,7 +18,11 @@ export default {
     },
 
     getArticles() {
-        return axios.get(serverURL + "/articles");
+        return axios.get(serverURL + "/articles", {
+            headers: {
+                "Authorization": "Bearer " + idToken,
+            },
+        });
     },
 
     addArticle(article) {

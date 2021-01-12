@@ -12,7 +12,10 @@ export default {
 
     async loginUser(context, data) {
         try {
-            await requests.loginUser(data.user);
+            let token = await requests.loginUser(data.user);
+            context.commit("loginUser", {
+                token: token.data
+            });
         } catch (e) {
             console.log(e);
         }
