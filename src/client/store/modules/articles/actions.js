@@ -4,7 +4,10 @@ import requests from "../../requests.js";
 export default {
     async getArticles(context, data) {
         try {
-            let result = await requests.getArticles();
+            let tokenId = context.rootGetters["auth/getTokenId"];
+            let result = await requests.getArticles({
+                token: tokenId
+            });
             context.commit("setArticles", {
                 articles: result.data,
             });

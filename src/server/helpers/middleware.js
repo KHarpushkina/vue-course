@@ -1,7 +1,6 @@
 "use strict";
 
 import jwt from "jsonwebtoken";
-const RSA_PUBLIC_KEY = process.env.RSA_PUBLIC_KEY;
 
 module.exports = {
     ensureAuthenticated(req, res, next) {
@@ -10,7 +9,7 @@ module.exports = {
             if (token.startsWith("Bearer ")) {
                 token = token.slice(7, token.length);
             }
-            jwt.verify(token, RSA_PUBLIC_KEY, { algorithms: ["RS256"] }, (err, decoded) => {
+            jwt.verify(token, process.env.RSA_PUBLIC_KEY, { algorithms: ["RS256"] }, (err, decoded) => {
                 if (err) {
                     res.status(401);
                     return next(new Error("Session has expired. Please login"));
