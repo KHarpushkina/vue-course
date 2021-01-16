@@ -1,7 +1,6 @@
-import User from "../models/User.js"
+import User from "../models/User.js";
 
 module.exports = {
-
     checkUser(id, res, callback) {
         User.findOne({ _id: id }, (err, user) => {
             if (err) {
@@ -46,5 +45,21 @@ module.exports = {
                 })
             );
         }
+    },
+
+    async populateQuery(model, modelToPopulate) {
+        model
+            .find({})
+            .populate(modelToPopulate)
+            .exec(function(err, result) {
+                if (err) {
+                    JSON.stringify({
+                        status: 404,
+                        message: "Failed to save document",
+                    });
+                } else {
+                    return result;
+                }
+            });
     },
 };

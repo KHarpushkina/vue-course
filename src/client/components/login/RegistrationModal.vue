@@ -16,14 +16,14 @@
                 <div class="modal-body">
                     <div class="row">
                         <label for="first-name" class="form-label">First Name</label>
-                        <input type="text" id="first-name" class="form-control" v-model="newUser.first_name" />
+                        <input type="text" id="first-name" class="form-control" v-model="newUser.firstName" />
                     </div>
                     <div class="row border-top">
                         <label for="last-name" class="form-label">Last Name</label>
-                        <input type="text" id="last-name" class="form-control" v-model="newUser.last_name" />
+                        <input type="text" id="last-name" class="form-control" v-model="newUser.lastName" />
                     </div>
                     <div class="row border-top">
-                        <label for="registration-emai" class="form-label">Email Address</label>
+                        <label for="registration-email" class="form-label">Email Address</label>
                         <input type="text" id="registration-email" class="form-control" v-model="newUser.email" />
                     </div>
                     <div class="row border-top">
@@ -56,8 +56,8 @@ export default {
     data() {
         return {
             newUser: {
-                first_name: "",
-                last_name: "",
+                firstName: "",
+                lastName: "",
                 email: "",
                 password: "",
             },

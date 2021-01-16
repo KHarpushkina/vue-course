@@ -16,7 +16,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <label for="email" class="form-label">Email Address</label>
-                        <input type="text" id="email" class="form-control" v-model="loginInfo.email" />
+                        <input type="text" id="email" class="form-control" v-model="loginInfo.email" autocomplete="on"/>
                     </div>
                     <div class="row border-top">
                         <label for="password" class="form-label">Password</label>
@@ -51,6 +51,7 @@ export default {
                 await this.$store.dispatch("auth/loginUser", {
                     user: this.loginInfo,
                 });
+                this.$emit("onToggle", false);
             } catch (e) {
                 console.log(e);
             }

@@ -9,6 +9,7 @@ const app = createApp(App);
 
 app.use(router);
 app.use(store);
+
 fontAwesomeImport(app);
 
 app.mount("#app");

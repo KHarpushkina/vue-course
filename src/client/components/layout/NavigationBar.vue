@@ -47,13 +47,14 @@
             </div>
         </div>
     </nav>
-    <registration-modal></registration-modal>
-    <login-modal></login-modal>
+    <registration-modal ref="registration-modal" @onToggle="toggleLoginModal"></registration-modal>
+    <login-modal ref="login-modal" @onToggle="toggleRegistrationModal"></login-modal>
 </template>
 
 <script>
 import RegistrationModal from "../../components/login/RegistrationModal.vue";
 import LoginModal from "../../components/login/LoginModal.vue";
+const bootstrap = require("bootstrap");
 
 export default {
     name: "ArticlesList",
@@ -62,9 +63,33 @@ export default {
         LoginModal,
     },
     data() {
-        return {};
+        return {
+            loginModalElement: null,
+            registrationModalElement: null,
+        };
     },
-    methods: {},
+    methods: {
+        toggleLoginModal: function(show) {
+            console.log(1)
+            if (show) {
+                this.loginModalElement.show();
+            } else {
+                this.loginModalElement.hide();
+            }
+        },
+
+        toggleRegistrationModal: function(show) {
+            if (show) {
+                this.registrationModalElement.show();
+            } else {
+                this.registrationModalElement.hide();
+            }
+        },
+    },
+    mounted: function() {
+        this.loginModalElement = new bootstrap.Modal(this.$refs["login-modal"].$el);
+        this.registrationModalElement = new bootstrap.Modal(this.$refs["registration-modal"].$el);
+    },
 };
 </script>
 

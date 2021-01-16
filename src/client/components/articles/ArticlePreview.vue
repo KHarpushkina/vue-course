@@ -6,6 +6,7 @@
         <div>
             <div class="row">
                 {{ cutArticleContent(article.content) }}
+                <font-awesome-icon icon="edit"></font-awesome-icon>
             </div>
         </div>
         <div class="row justify-content-end">
@@ -14,15 +15,13 @@
                     :to="{
                         name: 'article_details',
                         params: {
-                            name: article.name
+                            name: article.name,
                         },
                     }"
                 >
                     <button class="btn btn-outline-dark">
                         <span class="read-more-text">Read more</span>
-                        <font-awesome-icon
-                            icon="chevron-right"
-                        ></font-awesome-icon>
+                        <font-awesome-icon icon="chevron-right"></font-awesome-icon>
                     </button>
                 </router-link>
             </div>

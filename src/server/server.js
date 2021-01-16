@@ -42,19 +42,32 @@ app.post('/login', (req, res, next) => {
             } else {
                 const jwtToken = jwt.sign({}, process.env.RSA_PRIVATE_KEY, {
                     algorithm: 'RS256',
-                    expiresIn: 600,
+                    expiresIn: 6000,
                     subject: '' + user._id
                 });
                 res.status(200).send({
                     signed_user: {
                         _id: user._id,
-                        email: user.email
+                        email: user.email,
+                        firstName: user.firstName,
+                        lastName: user.lastName
                     },
                     expiresIn: 600,
                     token: jwtToken
                 });
             }
         });
+    });
+});
+
+app.post("/create-user", (req, res, next) => {
+    let user = new User(req.body.user);
+    bcrypt.hash(req.body.user.password, 10, function(err, hash) {
+        user.password = hash;
+        serverSetup
+        .insertDocument(user)
+        .then((response) => res.send(response))
+        .catch((err) => next(err));
     });
 });
 
@@ -70,24 +83,22 @@ app.get("/articles", (req, res, next) => {
     });
 });
 
+app.get("/only-my-articles", (req, res, next) => {
+    console.log(req)
+    serverSetup.checkUser(req.decoded.sub, res, () => {
+        serverSetup
+            .getDocuments(Article)
+            .then((response) => res.status(200).send(response))
+            .catch((err) => next(err));
+    });
+});
+
 app.post("/create-article", (req, res, next) => {
     const article = new Article(req.body.article);
     serverSetup
         .insertDocument(article)
         .then((response) => res.send(response))
         .catch((err) => next(err));
-});
-
-
-app.post("/create-user", (req, res, next) => {
-    let user = new User(req.body.user);
-    bcrypt.hash(req.body.user.password, 10, function(err, hash) {
-        user.password = hash;
-        serverSetup
-        .insertDocument(user)
-        .then((response) => res.send(response))
-        .catch((err) => next(err));
-    });
 });
 
 /*app.get("/cart", (req, res) => {

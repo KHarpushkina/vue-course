@@ -9,18 +9,9 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <label for="article-author" class="form-label">
-                            Author
-                        </label>
-                        <div class="input-group mb-3">
-                            <input
-                                type="text"
-                                v-model="newArticle.author"
-                                class="form-control"
-                                id="article-author"
-                                placeholder="Article author"
-                            />
-                        </div>
+                        <span for="article-author" class="form-label">
+                            Author : {{ user.firstName + " " + user.lastName }} 
+                        </span>
                     </div>
                 </div>
                 <div class="row">
@@ -77,11 +68,16 @@ export default {
             newArticle: {
                 title: "",
                 content: "",
-                author: "Kseniya_Harpushkina",
+                author: "",
                 last_updated: "",
                 category: "",
             },
         };
+    },
+    computed: {
+        user: function() {
+			return this.$store.getters["auth/getUser"];
+		}
     },
     methods: {
         saveArticle: async function() {
