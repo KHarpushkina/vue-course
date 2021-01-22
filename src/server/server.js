@@ -52,7 +52,7 @@ app.post('/login', (req, res, next) => {
                         firstName: user.firstName,
                         lastName: user.lastName
                     },
-                    expiresIn: 600,
+                    expiresIn: 20 * 60,
                     token: jwtToken
                 });
             }
@@ -60,31 +60,27 @@ app.post('/login', (req, res, next) => {
     });
 });
 
+app.get("/user", (req, res, next) => {
+    serverSetup
+        .getDocumentById(User, req.query.id)
+        .then((response) => res.status(200).send(response))
+        .catch((err) => next(err));
+});
+
 app.post("/create-user", (req, res, next) => {
     let user = new User(req.body.user);
-    bcrypt.hash(req.body.user.password, 10, function(err, hash) {
+    bcrypt.hash(req.body.user.password, 10, function (err, hash) {
         user.password = hash;
         serverSetup
-        .insertDocument(user)
-        .then((response) => res.send(response))
-        .catch((err) => next(err));
+            .insertDocument(user)
+            .then((response) => res.send(response))
+            .catch((err) => next(err));
     });
 });
 
 app.use(middleware.ensureAuthenticated);
 
 app.get("/articles", (req, res, next) => {
-    console.log(req)
-    serverSetup.checkUser(req.decoded.sub, res, () => {
-        serverSetup
-            .getDocuments(Article)
-            .then((response) => res.status(200).send(response))
-            .catch((err) => next(err));
-    });
-});
-
-app.get("/only-my-articles", (req, res, next) => {
-    console.log(req)
     serverSetup.checkUser(req.decoded.sub, res, () => {
         serverSetup
             .getDocuments(Article)

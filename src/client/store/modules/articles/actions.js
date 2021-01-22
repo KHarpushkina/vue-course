@@ -5,6 +5,7 @@ export default {
     async getArticles(context, data) {
         try {
             let tokenId = context.rootGetters["auth/getTokenId"];
+            console.log(tokenId)
             let result = await requests.getArticles({
                 token: tokenId
             });

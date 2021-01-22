@@ -31,7 +31,10 @@ export default {
     },
 	methods: {},
 	mounted: async function() {
-		await this.$store.dispatch("articles/getArticles");
+        await Promise.all([
+            this.$store.dispatch("auth/checkUser"),
+            this.$store.dispatch("articles/getArticles")
+        ]);
 	},
 };
 </script>

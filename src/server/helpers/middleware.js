@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 
 module.exports = {
     ensureAuthenticated(req, res, next) {
+        console.log(1)
         let token = req.headers["x-access-token"] || req.headers["authorization"];
         if (token) {
             if (token.startsWith("Bearer ")) {

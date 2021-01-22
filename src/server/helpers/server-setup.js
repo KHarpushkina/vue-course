@@ -19,6 +19,20 @@ module.exports = {
         });
     },
 
+    async getDocumentById(model, id, fields = null) {
+        let result = await model.findById(id, fields).exec();
+        if (result) {
+            return result;
+        } else {
+            throw new Error(
+                JSON.stringify({
+                    status: 404,
+                    message: "No such document in the database",
+                })
+            );
+        }
+    },
+
     async getDocuments(model, selectors = {}, fields = null, options = {}) {
         let result = await model.find(selectors, fields, options).exec();
         if (result) {

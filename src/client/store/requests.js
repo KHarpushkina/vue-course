@@ -4,6 +4,14 @@ import axios from "axios";
 const serverURL = "http://localhost:3000";
 
 export default {
+    getUser(id) {
+        return axios.get(serverURL + "/user", {
+            params: {
+                id: id
+            }
+        });
+    },
+
     addUser(user) {
         return axios.post(serverURL + "/create-user", {
             user,
