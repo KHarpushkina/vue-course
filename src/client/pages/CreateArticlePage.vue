@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col">
                         <span for="article-author" class="form-label">
-                            Author : {{ user.firstName + " " + user.lastName }} 
+                            Author : {{ user.firstName + " " + user.lastName }}
                         </span>
                     </div>
                 </div>
@@ -45,11 +45,11 @@
                     </div>
                 </div>
                 <div class="row bottom-buttons-row justify-content-end border-top">
-                    <div class="col-4 buttons-controls">
-                        <button class="btn btn-outline-secondary btn-lg" type="button" @click="closeEditing">
+                    <div class="buttons-controls">
+                        <button class="btn btn-danger" type="button" @click="closeEditing">
                             Close
                         </button>
-                        <button class="btn btn-info btn-lg" type="button" @click="saveArticle">
+                        <button class="btn btn-secondary" type="button" @click="saveArticle">
                             Save
                         </button>
                     </div>
@@ -68,7 +68,7 @@ export default {
             newArticle: {
                 title: "",
                 content: "",
-                author: "",
+                _author: "",
                 last_updated: "",
                 category: "",
             },
@@ -76,12 +76,13 @@ export default {
     },
     computed: {
         user: function() {
-			return this.$store.getters["auth/getUser"];
-		}
+            return this.$store.getters["auth/getUser"];
+        },
     },
     methods: {
         saveArticle: async function() {
             this.newArticle.last_updated = new Date();
+            this.newArticle._author = this.user?.id || "";
             try {
                 await this.$store.dispatch("articles/addArticle", {
                     article: this.newArticle,
@@ -104,9 +105,10 @@ export default {
 
 <style scoped lang="scss" rel="stylesheet/scss">
 .buttons-controls {
+    display: flex;
+    justify-content: space-between;
     button {
         min-width: 84px;
-        width: 50%;
     }
 }
 </style>

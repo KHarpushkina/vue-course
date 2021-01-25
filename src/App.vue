@@ -21,6 +21,7 @@ export default {
 
 <style lang="scss" rel="stylesheet/scss">
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "public/styles.scss";
 .content-container {
     margin: 84px;
 }

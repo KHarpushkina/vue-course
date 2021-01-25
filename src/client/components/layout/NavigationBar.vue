@@ -38,17 +38,17 @@
             </div>
             <div class="nav-buttons">
                 <button class="btn btn-light">Search</button>
-                <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#login-modal">
+                <button class="btn btn-outline-info" @click="toggleLoginModal(true)">
                     Sign In
                 </button>
-                <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#registration-modal">
+                <button class="btn btn-outline-info"  @click="toggleRegistrationModal(true)">
                     Sign Up
                 </button>
             </div>
         </div>
     </nav>
-    <registration-modal ref="registration-modal" @onToggle="toggleLoginModal"></registration-modal>
-    <login-modal ref="login-modal" @onToggle="toggleRegistrationModal"></login-modal>
+    <registration-modal ref="registration-modal" @onToggle="toggleRegistrationModal"></registration-modal>
+    <login-modal ref="login-modal" @onToggle="toggleLoginModal"></login-modal>
 </template>
 
 <script>
@@ -70,7 +70,6 @@ export default {
     },
     methods: {
         toggleLoginModal: function(show) {
-            console.log(1)
             if (show) {
                 this.loginModalElement.show();
             } else {

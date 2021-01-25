@@ -9,41 +9,44 @@
     >
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Registration</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <label for="first-name" class="form-label">First Name</label>
-                        <input type="text" id="first-name" class="form-control" v-model="newUser.firstName" />
+                <form>
+                    <div class="modal-header">
+                        <span class="modal-title" id="staticBackdropLabel">Registration</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="row border-top">
-                        <label for="last-name" class="form-label">Last Name</label>
-                        <input type="text" id="last-name" class="form-control" v-model="newUser.lastName" />
+                    <div class="modal-body">
+                        <div class="row">
+                            <label for="first-name" class="form-label">First Name</label>
+                            <input type="text" id="first-name" class="form-control" v-model="newUser.firstName" />
+                        </div>
+                        <div class="row border-top">
+                            <label for="last-name" class="form-label">Last Name</label>
+                            <input type="text" id="last-name" class="form-control" v-model="newUser.lastName" />
+                        </div>
+                        <div class="row border-top">
+                            <label for="registration-email" class="form-label">Email Address</label>
+                            <input type="text" id="registration-email" class="form-control" v-model="newUser.email" />
+                        </div>
+                        <div class="row border-top">
+                            <label for="registration-password" class="form-label">Password</label>
+                            <input
+                                type="password"
+                                id="registration-password"
+                                class="form-control"
+                                autocomplete="off"
+                                v-model="newUser.password"
+                            />
+                        </div>
+                        <div class="row border-top">
+                            <label for="repeat-password" class="form-label">Repeat Password</label>
+                            <input type="password" id="repeat-password" class="form-control" autocomplete="off"/>
+                        </div>
                     </div>
-                    <div class="row border-top">
-                        <label for="registration-email" class="form-label">Email Address</label>
-                        <input type="text" id="registration-email" class="form-control" v-model="newUser.email" />
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" @click="saveUser">Sign Up</button>
                     </div>
-                    <div class="row border-top">
-                        <label for="registration-password" class="form-label">Password</label>
-                        <input
-                            type="password"
-                            id="registration-password"
-                            class="form-control"
-                            v-model="newUser.password"
-                        />
-                    </div>
-                    <div class="row border-top">
-                        <label for="repeat-password" class="form-label">Repeat Password</label>
-                        <input type="password" id="repeat-password" class="form-control" />
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="saveUser">Sign Up</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -51,7 +54,7 @@
 
 <script>
 export default {
-    name: "RegistrationPage",
+    name: "RegistrationModal",
     components: {},
     data() {
         return {
@@ -74,7 +77,7 @@ export default {
                 console.log(e);
             }
         },
-    }
+    },
 };
 </script>
 

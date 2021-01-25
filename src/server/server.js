@@ -42,7 +42,7 @@ app.post('/login', (req, res, next) => {
             } else {
                 const jwtToken = jwt.sign({}, process.env.RSA_PRIVATE_KEY, {
                     algorithm: 'RS256',
-                    expiresIn: 6000,
+                    expiresIn: 20 * 60,
                     subject: '' + user._id
                 });
                 res.status(200).send({
@@ -78,21 +78,28 @@ app.post("/create-user", (req, res, next) => {
     });
 });
 
-app.use(middleware.ensureAuthenticated);
+//app.use(middleware.ensureAuthenticated);
 
 app.get("/articles", (req, res, next) => {
-    serverSetup.checkUser(req.decoded.sub, res, () => {
+   // serverSetup.checkUser(req.decoded.sub, res, () => {
         serverSetup
-            .getDocuments(Article)
+            .populateQuery(Article, "_author")
             .then((response) => res.status(200).send(response))
             .catch((err) => next(err));
-    });
+   // });
 });
 
 app.post("/create-article", (req, res, next) => {
     const article = new Article(req.body.article);
     serverSetup
         .insertDocument(article)
+        .then((response) => res.send(response))
+        .catch((err) => next(err));
+});
+
+app.post("/delete-article", (req, res, next) => {
+    serverSetup
+        .deleteDocument(Article, {_id: req.body.article._id})
         .then((response) => res.send(response))
         .catch((err) => next(err));
 });

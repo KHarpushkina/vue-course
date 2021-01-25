@@ -7,20 +7,15 @@ export default {
     name: "ArticleDetailsPage",
     components: {},
     props: {
-      name: String
+        title: String,
     },
     data() {
-        return {
-            articles: [],
-        };
+        return {};
     },
-
     methods: {},
-
     mounted() {
     },
 };
 </script>
 
-<style scoped lang="scss" rel="stylesheet/scss">
-</style>
+<style scoped lang="scss" rel="stylesheet/scss"></style>

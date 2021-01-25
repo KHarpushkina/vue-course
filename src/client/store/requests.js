@@ -37,4 +37,10 @@ export default {
             article,
         });
     },
+
+    deleteArticle(article) {
+        return axios.post(serverURL + "/delete-article", {
+            article,
+        });
+    },
 };

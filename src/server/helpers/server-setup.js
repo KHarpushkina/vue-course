@@ -61,19 +61,34 @@ module.exports = {
         }
     },
 
-    async populateQuery(model, modelToPopulate) {
-        model
+    async deleteDocument(model, selectors) {
+        let result = await model.deleteOne(selectors);
+        if (result) {
+            return result;
+        } else {
+            throw new Error(
+                JSON.stringify({
+                    status: 404,
+                    message: "Failed to delete document",
+                })
+            );
+        }
+    },
+
+    async populateQuery(model, field) {
+        let result = model
             .find({})
-            .populate(modelToPopulate)
-            .exec(function(err, result) {
-                if (err) {
-                    JSON.stringify({
-                        status: 404,
-                        message: "Failed to save document",
-                    });
-                } else {
-                    return result;
-                }
-            });
+            .populate(field)
+            .exec();
+        if (result) {
+            return result;
+        } else {
+            throw new Error(
+                JSON.stringify({
+                    status: 404,
+                    message: "No such documents in the database",
+                })
+            );
+        }
     },
 };

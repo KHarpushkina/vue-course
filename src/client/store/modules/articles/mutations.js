@@ -10,4 +10,8 @@ export default {
     addArticle(state, data) {
         state.articles[data.article._id] = data.article;
     },
+
+    deleteArticle(state, data) {
+        delete state.articles[data.article._id];
+    },
 };
