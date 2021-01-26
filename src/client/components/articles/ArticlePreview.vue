@@ -4,7 +4,7 @@
             <div class="col-9">
                 <span class="article-title">{{ article.title }}</span>
             </div>
-            <div class="col-3 control-article-buttons">
+            <div class="col-3 control-article-buttons" v-if="isAuthor">
                 <button class="btn btn-secondary">
                     <span>Edit</span>
                     <font-awesome-icon icon="edit"></font-awesome-icon>
@@ -27,20 +27,20 @@
                 </button>
             </div>
         </div>
-        <confirmation-modal
-            ref="confirmation-modal"
-            @onToggle="toggleConfirmationModal"
-            @onSubmitAction="deleteArticle"
-            :id="article._id"
-        >
-            <template v-slot:header>
-                <span class="modal-title">Delete article {{ article.title }}</span>
-            </template>
-            <template v-slot:body>
-                <span>Are you sure you want to delete the article?</span>
-            </template>
-        </confirmation-modal>
     </div>
+    <confirmation-modal
+        ref="confirmation-modal"
+        @onToggle="toggleConfirmationModal"
+        @onSubmitAction="deleteArticle"
+        :id="article._id"
+    >
+        <template v-slot:header>
+            <span class="modal-title">Delete article {{ article.title }}</span>
+        </template>
+        <template v-slot:body>
+            <span>Are you sure you want to delete the article?</span>
+        </template>
+    </confirmation-modal>
 </template>
 
 <script>
@@ -65,9 +65,15 @@ export default {
         };
     },
     computed: {
-        authorFullName: function () {
-           return this.article._author.firstName + " " + this.article._author.lastName
-        }
+        user: function() {
+            return this.$store.getters["auth/getUser"];
+        },
+        isAuthor: function() {
+            return this.user.id && this.article._author._id === this.user.id;
+        },
+        authorFullName: function() {
+            return this.article._author.firstName + " " + this.article._author.lastName;
+        },
     },
     methods: {
         cutArticleContent(content) {

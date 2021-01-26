@@ -38,10 +38,13 @@
             </div>
             <div class="nav-buttons">
                 <button class="btn btn-light">Search</button>
-                <button class="btn btn-outline-info" @click="toggleLoginModal(true)">
+                <button class="btn btn-outline-info" @click="toggleLoginModal(true)" v-if="!user.id">
                     Sign In
                 </button>
-                <button class="btn btn-outline-info"  @click="toggleRegistrationModal(true)">
+                <button class="btn btn-outline-info" @click="toggleConfirmationModal(true)" v-if="user.id">
+                    Sign Out
+                </button>
+                <button class="btn btn-outline-info" @click="toggleRegistrationModal(true)" v-if="!user.id">
                     Sign Up
                 </button>
             </div>
@@ -49,11 +52,20 @@
     </nav>
     <registration-modal ref="registration-modal" @onToggle="toggleRegistrationModal"></registration-modal>
     <login-modal ref="login-modal" @onToggle="toggleLoginModal"></login-modal>
+    <confirmation-modal ref="confirmation-modal" @onToggle="toggleConfirmationModal" @onSubmitAction="signOut">
+        <template v-slot:header>
+            <span class="modal-title">Sign Out</span>
+        </template>
+        <template v-slot:body>
+            <span>Are you sure you want to sign out?</span>
+        </template>
+    </confirmation-modal>
 </template>
 
 <script>
 import RegistrationModal from "../../components/login/RegistrationModal.vue";
 import LoginModal from "../../components/login/LoginModal.vue";
+import ConfirmationModal from "../layout/ConfirmationModal.vue";
 const bootstrap = require("bootstrap");
 
 export default {
@@ -61,12 +73,19 @@ export default {
     components: {
         RegistrationModal,
         LoginModal,
+        ConfirmationModal
     },
     data() {
         return {
             loginModalElement: null,
             registrationModalElement: null,
+            confirmationModalElement: null
         };
+    },
+    computed: {
+        user: function() {
+            return this.$store.getters["auth/getUser"];
+        },
     },
     methods: {
         toggleLoginModal: function(show) {
@@ -84,10 +103,28 @@ export default {
                 this.registrationModalElement.hide();
             }
         },
+
+        toggleConfirmationModal: function(show) {
+            if (show) {
+                this.registrationModalElement.show();
+            } else {
+                this.registrationModalElement.hide();
+            }
+        },
+
+        signOut: async function() {
+            try {
+                await this.$store.dispatch("auth/logOutUser");
+                this.toggleConfirmationModal(false);
+            } catch (e) {
+                console.log(e);
+            }
+        },
     },
     mounted: function() {
         this.loginModalElement = new bootstrap.Modal(this.$refs["login-modal"].$el);
         this.registrationModalElement = new bootstrap.Modal(this.$refs["registration-modal"].$el);
+        this.confirmationModalElement = new bootstrap.Modal(this.$refs["confirmation-modal"].$el);
     },
 };
 </script>

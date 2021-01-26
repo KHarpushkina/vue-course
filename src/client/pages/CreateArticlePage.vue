@@ -99,7 +99,9 @@ export default {
             });
         },
     },
-    mounted() {},
+    mounted: async function() {
+        await this.$store.dispatch("auth/checkUser");
+    },
 };
 </script>
 

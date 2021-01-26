@@ -9,4 +9,8 @@ export default {
         state.user.lastName = data.token.signed_user.lastName;
         state.user.id = data.token.signed_user._id;
     },
+
+    logOutUser(state) {
+        state.user = {};
+    }
 };

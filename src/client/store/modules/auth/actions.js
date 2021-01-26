@@ -24,6 +24,18 @@ export default {
         }
     },
 
+    async logOutUser(context, data) {
+        try {
+            let token = await requests.loginUser(data.user);
+            let expiresIn = new Date(+new Date() + token.data.expiresIn * 1000);
+            document.cookie = `token=${token.data.token}; path=/; expires=Tue, ${expiresIn}`;
+            document.cookie = `user=${token.data.signed_user._id}; path=/; expires=Tue, ${expiresIn}`;
+            context.commit("logOutUser");
+        } catch (e) {
+            console.log(e);
+        }
+    },
+
     async checkUser(context, data) {
         try {
             let cookieArray = (document.cookie).split("; ");
