@@ -14,7 +14,7 @@
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link :to="{ name: 'create_article' }">
+                        <router-link :to="{ name: 'save_article' }">
                             <span class="nav-link" aria-current="page">
                                 Create article
                             </span>
@@ -106,9 +106,9 @@ export default {
 
         toggleConfirmationModal: function(show) {
             if (show) {
-                this.registrationModalElement.show();
+                this.confirmationModalElement.show();
             } else {
-                this.registrationModalElement.hide();
+                this.confirmationModalElement.hide();
             }
         },
 

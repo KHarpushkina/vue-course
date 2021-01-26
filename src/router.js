@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import ArticlesMainPage from "./client/pages/ArticlesMainPage.vue";
 import ArticleDetailsPage from "./client/pages/ArticleDetailsPage.vue";
-import CreateArticlePage from "./client/pages/CreateArticlePage.vue";
+import SaveArticlePage from "./client/pages/SaveArticlePage.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -19,10 +19,10 @@ const router = createRouter({
             component: ArticleDetailsPage,
         },
         {
-            name: "create_article",
-            path: "/create-new-article",
+            name: "save_article",
+            path: "/save-article",
             props: true,
-            component: CreateArticlePage,
+            component: SaveArticlePage,
         },
         /*{ path: '/register', component: null },
     { path: '/requests', component: null }, */

@@ -14,8 +14,8 @@ export default {
         try {
             let token = await requests.loginUser(data.user);
             let expiresIn = new Date(+new Date() + token.data.expiresIn * 1000);
-            document.cookie = `token=${token.data.token}; path=/; expires=Tue, ${expiresIn}`;
-            document.cookie = `user=${token.data.signed_user._id}; path=/; expires=Tue, ${expiresIn}`;
+            document.cookie = `token=${token.data.token}; path=/; expires=${expiresIn}`;
+            document.cookie = `user=${token.data.signed_user._id}; path=/; expires=${expiresIn}`;
             context.commit("loginUser", {
                 token: token.data
             });
@@ -24,19 +24,17 @@ export default {
         }
     },
 
-    async logOutUser(context, data) {
+    async logOutUser(context) {
         try {
-            let token = await requests.loginUser(data.user);
-            let expiresIn = new Date(+new Date() + token.data.expiresIn * 1000);
-            document.cookie = `token=${token.data.token}; path=/; expires=Tue, ${expiresIn}`;
-            document.cookie = `user=${token.data.signed_user._id}; path=/; expires=Tue, ${expiresIn}`;
+            document.cookie = `token= ; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+            document.cookie = `user= ; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
             context.commit("logOutUser");
         } catch (e) {
             console.log(e);
         }
     },
 
-    async checkUser(context, data) {
+    async checkUser(context) {
         try {
             let cookieArray = (document.cookie).split("; ");
             let cookieObject = {};

@@ -9,7 +9,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <span for="article-author" class="form-label">
+                        <span for="article-author" class="form-label" v-if="user.id">
                             Author : {{ user.firstName + " " + user.lastName }}
                         </span>
                     </div>
@@ -61,8 +61,13 @@
 
 <script>
 export default {
-    name: "CreateArticlePage",
+    name: "SaveArticlePage",
     components: {},
+    props: {
+        article: {
+            type: Object
+        }
+    },
     data() {
         return {
             newArticle: {
@@ -101,6 +106,10 @@ export default {
     },
     mounted: async function() {
         await this.$store.dispatch("auth/checkUser");
+        console.log(this.article)
+        if (this.article) {
+            Object.assign(this.newArticle, this.article);
+        }
     },
 };
 </script>

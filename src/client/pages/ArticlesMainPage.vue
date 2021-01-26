@@ -24,7 +24,7 @@ export default {
         },
     },
     methods: {},
-    mounted: async function() {
+    beforeMount: async function() {
         await this.$store.dispatch("auth/checkUser").then(async () => {
             await this.$store.dispatch("articles/getArticles");
         });
