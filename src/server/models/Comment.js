@@ -1,7 +1,7 @@
 import * as mongoose from "mongoose";
 
 const commentSchema = new mongoose.Schema({
-    comment: {
+    comment_body: {
         type: String,
         required: true
     },

@@ -7,7 +7,7 @@ export default {
             let result = await requests.getCommentsByArticleId(data.articleId);
             context.commit("setCommentsByArticleId", {
                 articleId: data.articleId,
-                comments: result
+                comments: result.data
             });
             console.log(result)
         } catch (e) {

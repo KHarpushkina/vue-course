@@ -3,7 +3,7 @@
 export default {
     getCommentsByArticleId(context) {
         return (articleId) => {
-           // return context.articles[id];
+           return context.comments[articleId];
         };
     },
 };
