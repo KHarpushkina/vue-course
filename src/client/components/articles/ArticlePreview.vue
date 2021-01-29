@@ -1,11 +1,14 @@
 <template>
-    <div class="container shadow-sm bg-white rounded">
+    <div class="container border rounded">
         <div class="row">
             <div class="col-9">
                 <span class="article-title">{{ article.title }}</span>
             </div>
             <div class="col-3 control-article-buttons" v-if="isAuthor">
-                <button class="btn btn-secondary" @click="goToPage('save_article', {article})">
+                <button 
+                    class="btn btn-secondary" 
+                    @click="goToPage('save_article', {articleId: article._id})"
+                >
                     <span>Edit</span>
                     <font-awesome-icon icon="edit"></font-awesome-icon>
                 </button>
@@ -23,7 +26,7 @@
             <div class="col-2">
                 <button 
                     class="btn btn-outline-secondary read-more-button" 
-                    @click="goToPage('article_details', {title: article.title})"
+                    @click="goToPage('article_details', {title: article.title, articleId: article._id})"
                 >
                     <span class="read-more-text">Read more</span>
                     <font-awesome-icon icon="chevron-right"></font-awesome-icon>
@@ -94,7 +97,6 @@ export default {
         },
 
         goToPage(name, params) {
-            console.log(this.article)
             this.$router.push({
                 name,
                 params

@@ -4,10 +4,11 @@ import cors from "cors";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
+import User from "./models/User.js";
 import Article from "./models/Article.js";
+import Comment from "./models/Comment.js";
 import serverSetup from "./helpers/server-setup.js";
 import middleware from "./helpers/middleware.js";
-import User from "./models/User.js";
 
 require("dotenv").config();
 
@@ -81,63 +82,60 @@ app.post("/create-user", (req, res, next) => {
 //app.use(middleware.ensureAuthenticated);
 
 app.get("/articles", (req, res, next) => {
-   // serverSetup.checkUser(req.decoded.sub, res, () => {
-        serverSetup
-            .populateQuery(Article, "_author")
-            .then((response) => res.status(200).send(response))
-            .catch((err) => next(err));
-   // });
+    // serverSetup.checkUser(req.decoded.sub, res, () => {
+    serverSetup
+        .populateQuery(Article, "_author")
+        .then((response) => res.status(200).send(response))
+        .catch((err) => next(err));
+    // });
 });
 
-app.post("/create-article", (req, res, next) => {
-    const article = new Article(req.body.article);
-    serverSetup
-        .insertDocument(article)
-        .then((response) => res.send(response))
-        .catch((err) => next(err));
+app.post("/save-article", (req, res, next) => {
+    if (!req.body.article._id) {
+        let article = new Article(req.body.article);
+        serverSetup
+            .saveDocument(article)
+            .then((response) => res.send(response))
+            .catch((err) => next(err));
+    } else {
+        serverSetup
+            .getDocumentById(Article, req.body.article._id)
+            .then((article) => {
+                article.title = req.body.article.title;
+                article.content = req.body.article.content;
+                article.category = req.body.article.category;
+                article.last_updated = req.body.article.last_updated;
+                serverSetup
+                    .saveDocument(article)
+                    .then((response) => res.send(response))
+                    .catch((err) => next(err));
+            })
+    }
 });
 
 app.post("/delete-article", (req, res, next) => {
     serverSetup
-        .deleteDocument(Article, {_id: req.body.article._id})
+        .deleteDocument(Article, { _id: req.body.article._id })
         .then((response) => res.send(response))
         .catch((err) => next(err));
 });
 
-/*app.get("/cart", (req, res) => {
-    ProductInCart.find({})
-        .populate("_product")
-        .exec((err, productsInCart) => {
-            if (err) {
-                res.send(err);
-            }
-            res.send(productsInCart);
-        });
+app.get("/comments-by-articleid", (req, res, next) => {
+    // serverSetup.checkUser(req.decoded.sub, res, () => {
+    serverSetup
+        .populateQuery(Comment, "_author", {_article: req.query.articleId})
+        .then((response) => res.status(200).send(response))
+        .catch((err) => next(err));
+    // });
 });
 
-app.post("/cart/order", (req, res, next) => {
-    const idsToOrder = req.body.productsToOrder;
-    const idsToRemove = req.body.productsToRemove.map(id => {
-        return mongoose.Types.ObjectId(id);
-    });
-    const newOrder = new Order({
-        productsToOrder: idsToOrder
-    });
-    newOrder.save(err => {
-        if (err) {
-            res.send(err);
-        }
-        removeProductsFromCart(res, next, idsToRemove);
-    });
+app.post("/save-comment", (req, res, next) => {
+        let comment = new Comment(req.body.comment);
+        serverSetup
+            .saveDocument(comment)
+            .then((response) => res.send(response))
+            .catch((err) => next(err));
 });
-
-app.post("/cart/remove", (req, res, next) => {
-    const idsToRemove = req.body.productsToRemove.map(id => {
-        return mongoose.Types.ObjectId(id);
-    });
-    removeProductsFromCart(res, next, idsToRemove);
-});
-*/
 
 app.use((err, req, res, next) => {
     res.status(500);

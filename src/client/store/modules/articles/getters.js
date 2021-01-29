@@ -5,9 +5,9 @@ export default {
         return context.articles;
     },
 
-    /* getDimensions(context) {
-        return (source) => {
-            return context[source].dimensions;
+    getArticleById(context) {
+        return (id) => {
+            return context.articles[id];
         };
-    } */
+    },
 };

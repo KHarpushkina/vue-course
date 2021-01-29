@@ -47,7 +47,7 @@ module.exports = {
         }
     },
 
-    async insertDocument(document) {
+    async saveDocument(document) {
         let result = await document.save();
         if (result) {
             return result;
@@ -75,10 +75,10 @@ module.exports = {
         }
     },
 
-    async populateQuery(model, field) {
+    async populateQuery(model, fields, selectors = {}) {
         let result = model
-            .find({})
-            .populate(field)
+            .find(selectors)
+            .populate(fields)
             .exec();
         if (result) {
             return result;

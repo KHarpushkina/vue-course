@@ -33,7 +33,7 @@ export default {
     },
 
     addArticle(article) {
-        return axios.post(serverURL + "/create-article", {
+        return axios.post(serverURL + "/save-article", {
             article,
         });
     },
@@ -41,6 +41,20 @@ export default {
     deleteArticle(article) {
         return axios.post(serverURL + "/delete-article", {
             article,
+        });
+    },
+
+    getCommentsByArticleId(articleId) {
+        return axios.get(serverURL + "/comments-by-articleid", {
+            params: {
+                articleId
+            }
+        });
+    },
+
+    addComment(comment) {
+        return axios.post(serverURL + "/save-comment", {
+            comment,
         });
     },
 };

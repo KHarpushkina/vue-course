@@ -64,8 +64,8 @@ export default {
     name: "SaveArticlePage",
     components: {},
     props: {
-        article: {
-            type: Object
+        articleId: {
+            type: String
         }
     },
     data() {
@@ -82,6 +82,9 @@ export default {
     computed: {
         user: function() {
             return this.$store.getters["auth/getUser"];
+        },
+        article: function() {
+            return this.$store.getters["articles/getArticleById"](this.articleId);
         },
     },
     methods: {
