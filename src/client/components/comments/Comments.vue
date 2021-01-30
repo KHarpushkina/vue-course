@@ -28,13 +28,13 @@
             </div>
         </div>
         <div class="row justify-content-end">
-            <div class="col-2 add-comment-button" v-if="!addCommentMod">
+            <div class="col-4 add-comment-button" v-if="!addCommentMod">
                 <button class="btn btn-outline-secondary" @click="changeCommentMod(true)">
                     <span>Add Comment</span>
                     <font-awesome-icon icon="plus"></font-awesome-icon>
                 </button>
             </div>
-			<div class="col-2 control-comments-buttons" v-if="addCommentMod">
+			<div class="col-4 control-comments-buttons" v-if="addCommentMod">
                 <button class="btn btn-danger" @click="changeCommentMod(false)">
                     <span>Cancel</span>
                 </button>
@@ -114,10 +114,19 @@ export default {
     font-size: 20px;
 }
 .add-comment-button {
+    display: flex;
+    justify-content: flex-end;
 	button {
 		svg {
 			margin-left: 10px;
 		}
 	}
+}
+.control-comments-buttons {
+    display: flex;
+    justify-content: flex-end;
+    button {
+        margin-left: 10px;
+    }
 }
 </style>

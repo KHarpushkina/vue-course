@@ -14,7 +14,6 @@ export default {
         try {
             let token = await requests.loginUser(data.user);
             let expiresIn = new Date(+new Date() + token.data.expiresIn * 1000) + "";
-            //expiresIn = expiresIn.split("").splice(3, 0, ",").join("");
             document.cookie = `token=${token.data.token}; path=/; expires=${expiresIn}`;
             document.cookie = `user=${token.data.signed_user._id}; path=/; expires=${expiresIn}`;
             context.commit("loginUser", {

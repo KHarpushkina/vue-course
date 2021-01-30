@@ -9,7 +9,6 @@ export default {
                 articleId: data.articleId,
                 comments: result.data
             });
-            console.log(result)
         } catch (e) {
             console.log(e);
         }
