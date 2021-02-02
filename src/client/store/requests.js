@@ -57,4 +57,10 @@ export default {
             comment,
         });
     },
+
+    deleteComment(comment) {
+        return axios.post(serverURL + "/delete-comment", {
+            comment,
+        });
+    },
 };

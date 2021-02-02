@@ -11,8 +11,10 @@ export default {
     },
 
     addComment(state, data) {
-        /* for (let i = 0; i < data.articles.length; i++) {
-            state.articles[data.articles[i]._id] = data.articles[i];
-        } */
+        state.comments[data.articleId][data.comment._id] = data.comment;
+    },
+
+    deleteComment(state, data) {
+        delete state.comments[data.articleId][data.commentId];
     }
 };

@@ -109,7 +109,6 @@ export default {
     },
     mounted: async function() {
         await this.$store.dispatch("auth/checkUser");
-        console.log(this.article)
         if (this.article) {
             Object.assign(this.newArticle, this.article);
         }

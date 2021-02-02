@@ -75,10 +75,10 @@ module.exports = {
         }
     },
 
-    async populateQuery(model, fields, selectors = {}) {
+    async populateQuery(model, populateObject, selectors = {}) {
         let result = model
             .find(selectors)
-            .populate(fields)
+            .populate(populateObject)
             .exec();
         if (result) {
             return result;

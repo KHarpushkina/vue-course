@@ -1,33 +1,41 @@
 <template>
-	<navigation-bar></navigation-bar>
-	<div class="content-container">
-		<router-view v-slot="slotProps">
-			<transition name="route" mode="out-in">
-				<component :is="slotProps.Component"></component>
-			</transition>
-		</router-view>
-	</div>
-	<notification ref="notification"></notification>
+    <navigation-bar></navigation-bar>
+    <div class="content-container">
+        <router-view v-slot="slotProps">
+            <transition name="route" mode="out-in">
+                <component :is="slotProps.Component"></component>
+            </transition>
+        </router-view>
+    </div>
+    <div aria-live="polite" aria-atomic="true" class="d-flex align-items-center">
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+            <template v-for="(toast, index) in notifications" :key="index">
+                <notification
+                    :notificationType="toast.notificationType"
+                    :notificationMessage="toast.notificationMessage"
+                ></notification>
+            </template>
+        </div>
+    </div>
 </template>
 
 <script>
 import NavigationBar from "./client/components/layout/NavigationBar.vue";
 import Notification from "./client/components/layout/Notification.vue";
-const bootstrap = require("bootstrap");
 
 export default {
-	name: "App",
-	components: {
-		NavigationBar,
-        Notification
-	},
-    data() {
-        return {
-            notificationElement: null,
-        };
+    name: "App",
+    components: {
+        NavigationBar,
+        Notification,
     },
-    mounted: function() {
-        this.notificationElement = new bootstrap.Alert(this.$refs["notification"].$el);
+    data() {
+        return {};
+    },
+    computed: {
+        notifications: function() {
+            return this.$store.getters["getNotifications"];
+        },
     },
 };
 </script>
@@ -36,9 +44,12 @@ export default {
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "public/styles.scss";
 .content-container {
-	margin: 84px;
+    margin: 84px;
 }
 .row {
-	padding: 12px 24px;
+    padding: 12px 24px;
+}
+.toast-container {
+    margin-top: 64px;
 }
 </style>

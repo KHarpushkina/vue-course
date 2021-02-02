@@ -6,13 +6,22 @@ export default {
         try {
             let tokenId = context.rootGetters["auth/getTokenId"];
             let result = await requests.getArticles({
-                token: tokenId
+                token: tokenId,
             });
             context.commit("setArticles", {
                 articles: result.data,
             });
         } catch (e) {
-            console.log(e);
+            context.commit(
+                "addNotification",
+                {
+                    toast: {
+                        notificationType: "error",
+                        notificationMessage: e.message,
+                    },
+                },
+                { root: true }
+            );
         }
     },
 
@@ -22,8 +31,27 @@ export default {
             context.commit("addArticle", {
                 article: result.data,
             });
+            context.commit(
+                "addNotification",
+                {
+                    toast: {
+                        notificationType: "success",
+                        notificationMessage: "Article was successfully creared",
+                    },
+                },
+                { root: true }
+            );
         } catch (e) {
-            console.log(e);
+            context.commit(
+                "addNotification",
+                {
+                    toast: {
+                        notificationType: "error",
+                        notificationMessage: e.message,
+                    },
+                },
+                { root: true }
+            );
         }
     },
 
@@ -33,19 +61,57 @@ export default {
             context.commit("addArticle", {
                 article: result.data,
             });
+            context.commit(
+                "addNotification",
+                {
+                    toast: {
+                        notificationType: "success",
+                        notificationMessage: "Article was successfully modified",
+                    },
+                },
+                { root: true }
+            );
         } catch (e) {
-            console.log(e);
+            context.commit(
+                "addNotification",
+                {
+                    toast: {
+                        notificationType: "error",
+                        notificationMessage: e.message,
+                    },
+                },
+                { root: true }
+            );
         }
     },
 
     async deleteArticle(context, data) {
         try {
-            let result = await requests.deleteArticle(data.article);
+            await requests.deleteArticle(data.article);
             context.commit("deleteArticle", {
                 article: data.article,
             });
+            context.commit(
+                "addNotification",
+                {
+                    toast: {
+                        notificationType: "success",
+                        notificationMessage: "Article was successfully deleted",
+                    },
+                },
+                { root: true }
+            );
         } catch (e) {
-            console.log(e);
+            context.commit(
+                "addNotification",
+                {
+                    toast: {
+                        notificationType: "error",
+                        notificationMessage: e.message,
+                    },
+                },
+                { root: true }
+            );
         }
     },
 };
