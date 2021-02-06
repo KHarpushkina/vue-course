@@ -1,3 +1,16 @@
+:root {
+    --primary-color: #222;
+}
+
+html, #app {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height: calc(100vh - 84px);
+}
+
 .modal-title {
     font-weight: 600;
     font-size: 24px;

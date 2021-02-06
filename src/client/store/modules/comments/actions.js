@@ -66,7 +66,7 @@ export default {
             await requests.deleteComment(data.comment);
             context.commit("deleteComment", {
                 articleId: data.articleId,
-                commentId: data.commentId,
+                commentId: data.comment._id,
             });
             context.commit(
                 "addNotification",

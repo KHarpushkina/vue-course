@@ -5,7 +5,7 @@
         aria-atomic="true"
         class="toast align-items-center"
         ref="toast"
-        data-bs-autohide="true"
+        data-bs-autohide="false"
         :class="toastStyleClass"
     >
         <div class="toast-header">

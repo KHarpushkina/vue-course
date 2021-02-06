@@ -63,4 +63,14 @@ export default {
             comment,
         });
     },
+    
+    getCategories() {
+        return axios.get(serverURL + "/categories");
+    },
+
+    addCategory(category) {
+        return axios.post(serverURL + "/save-category", {
+            category,
+        });
+    },
 };

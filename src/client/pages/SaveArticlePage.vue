@@ -1,17 +1,27 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col fields-block shadow-sm">
+            <div class="col fields-block">
                 <div class="row border-bottom">
                     <div class="col">
-                        <h1>Create new Article</h1>
+                        <div class="author-block">
+                            <div class="user-icon"><font-awesome-icon icon="user"></font-awesome-icon></div>
+                            <div>
+                                <span>{{ authorFullName }}</span>
+                            </div>
+                        </div>
+                        <h1>{{ pageHeader }}</h1>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row category-block">
                     <div class="col">
-                        <span for="article-author" class="form-label" v-if="user.id">
-                            Author : {{ user.firstName + " " + user.lastName }}
-                        </span>
+                        <div class="form-label">
+                            <span
+                                ><button class="btn btn-secondary" @click="toggleCategoriesModal(true)">
+                                    Choose Category
+                                </button></span
+                            >
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -56,17 +66,23 @@
                 </div>
             </div>
         </div>
+        <categories-list ref="categories-modal" @onToggle="toggleCategoriesModal"></categories-list>
     </div>
 </template>
 
 <script>
+import CategoriesList from "../components/categories/CategoriesList.vue";
+const bootstrap = require("bootstrap");
+
 export default {
     name: "SaveArticlePage",
-    components: {},
+    components: {
+        CategoriesList,
+    },
     props: {
         articleId: {
-            type: String
-        }
+            type: String,
+        },
     },
     data() {
         return {
@@ -75,8 +91,10 @@ export default {
                 content: "",
                 _author: "",
                 last_updated: "",
-                category: "",
+                _category: [],
             },
+            pageHeader: "",
+            categoriesListElement: null,
         };
     },
     computed: {
@@ -85,6 +103,12 @@ export default {
         },
         article: function() {
             return this.$store.getters["articles/getArticleById"](this.articleId);
+        },
+        authorFullName: function() {
+            if (this.user) {
+                return this.user.firstName + " " + this.user.lastName;
+            }
+            return "";
         },
     },
     methods: {
@@ -101,6 +125,14 @@ export default {
             }
         },
 
+        toggleCategoriesModal: function(show) {
+            if (show) {
+                this.categoriesListElement.show();
+            } else {
+                this.categoriesListElement.hide();
+            }
+        },
+
         closeEditing: function() {
             this.$router.push({
                 name: "articles_main_page",
@@ -111,12 +143,23 @@ export default {
         await this.$store.dispatch("auth/checkUser");
         if (this.article) {
             Object.assign(this.newArticle, this.article);
+            this.pageHeader = "Edit your article";
+        } else {
+            this.pageHeader = "Create new Article";
         }
+        this.categoriesListElement = new bootstrap.Modal(this.$refs["categories-modal"].$el);
     },
 };
 </script>
 
 <style scoped lang="scss" rel="stylesheet/scss">
+.author-block {
+    display: flex;
+    span {
+        margin-left: 12px;
+        color: var(--bs-secondary);
+    }
+}
 .buttons-controls {
     display: flex;
     justify-content: space-between;

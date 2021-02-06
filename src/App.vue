@@ -44,12 +44,14 @@ export default {
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "public/styles.scss";
 .content-container {
-    margin: 84px;
+    height: 100%;
+    margin-top: 84px;
 }
 .row {
     padding: 12px 24px;
 }
 .toast-container {
     margin-top: 64px;
+    z-index: 999;
 }
 </style>

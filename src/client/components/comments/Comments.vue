@@ -19,8 +19,10 @@
                                 <span>{{ getDate(comment) }}</span>
                             </div>
                         </div>
-                        <div class="trash-icon">
-                            <font-awesome-icon icon="trash-alt" @click="deleteComment(comment)"></font-awesome-icon>
+                        <div class="trash-icon" v-if="isAuthor(comment)">
+                            <button class="btn btn-outline-secondary" @click="toggleConfirmationModal(true, comment)">
+                                <font-awesome-icon icon="trash-alt"></font-awesome-icon>
+                            </button>
                         </div>
                     </div>
                     <div class="comment-block">{{ comment.comment_body }}</div>
@@ -58,11 +60,29 @@
             </div>
         </div>
     </div>
+    <confirmation-modal
+        ref="confirmation-modal"
+        @onToggle="toggleConfirmationModal"
+        @onSubmitAction="deleteComment"
+    >
+        <template v-slot:header>
+            <span class="modal-title">Delete comment</span>
+        </template>
+        <template v-slot:body>
+            <span>Are you sure you want to delete your comment?</span>
+        </template>
+    </confirmation-modal>
 </template>
 
 <script>
+import ConfirmationModal from "../layout/ConfirmationModal.vue";
+const bootstrap = require("bootstrap");
+
 export default {
     name: "Comments",
+    components: {
+        ConfirmationModal,
+    },
     props: {
         article: {
             type: Object,
@@ -74,6 +94,7 @@ export default {
             articles: [],
             confirmationModalElement: null,
             addCommentMod: false,
+            selectedComment: null,
             newComment: {
                 comment_body: "",
             },
@@ -127,8 +148,23 @@ export default {
             );
         },
 
+        isAuthor: function(comment) {
+            return this.user && comment._author.email === this.user.email;
+        },
+
         changeCommentMod: function(value) {
             this.addCommentMod = value;
+        },
+
+        toggleConfirmationModal: function(show, comment) {
+            if (comment) {
+                this.selectedComment = comment;
+            }
+            if (show) {
+                this.confirmationModalElement.show();
+            } else {
+                this.confirmationModalElement.hide();
+            }
         },
 
         addComment: async function() {
@@ -148,18 +184,20 @@ export default {
             }
         },
 
-        deleteComment: async function(comment) {
+        deleteComment: async function() {
             try {
                 await this.$store.dispatch("comments/deleteComment", {
-                    comment,
+                    comment: this.selectedComment,
                     articleId: this.article._id,
                 });
+                this.toggleConfirmationModal(false, null);
             } catch (e) {
                 console.log(e);
             }
         },
     },
     mounted: async function() {
+        this.confirmationModalElement = new bootstrap.Modal(this.$refs["confirmation-modal"].$el);
         await this.$store.dispatch("comments/getCommentsByArticleId", {
             articleId: this.article._id,
         });
@@ -192,15 +230,15 @@ export default {
             }
             .user-icon {
                 padding: 0 10px;
-            }
-            svg {
-                height: 1.5rem;
-                width: 1.5rem;
-                color: var(--bs-secondary);
+                svg {
+                    height: 1.5rem;
+                    width: 1.5rem;
+                    color: var(--bs-secondary);
+                }
             }
         }
         .comment-block {
-            margin: 16px 0 0 48px;
+            margin: 4px 0 0 48px;
         }
     }
 }

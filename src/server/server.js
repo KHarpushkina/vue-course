@@ -7,6 +7,7 @@ import bcrypt from "bcrypt";
 import User from "./models/User.js";
 import Article from "./models/Article.js";
 import Comment from "./models/Comment.js";
+import Category from "./models/Category.js";
 import serverSetup from "./helpers/server-setup.js";
 import middleware from "./helpers/middleware.js";
 
@@ -80,7 +81,7 @@ app.post("/create-user", (req, res, next) => {
 app.get("/articles", (req, res, next) => {
     // serverSetup.checkUser(req.decoded.sub, res, () => {
     serverSetup
-        .populateQuery(Article, "_author")
+        .populateQuery(Article, "_author _category.category")
         .then((response) => res.status(200).send(response))
         .catch((err) => next(err));
     // });
@@ -138,6 +139,21 @@ app.post("/save-comment", (req, res, next) => {
 app.post("/delete-comment", (req, res, next) => {
     serverSetup
         .deleteDocument(Comment, { _id: req.body.comment._id })
+        .then((response) => res.send(response))
+        .catch((err) => next(err));
+});
+
+app.get("/categories", (req, res, next) => {
+    serverSetup
+        .getDocuments(Category)
+        .then((response) => res.status(200).send(response))
+        .catch((err) => next(err));
+});
+
+app.post("/save-category", (req, res, next) => {
+    let category = new Category(req.body.category);
+    serverSetup
+        .saveDocument(category)
         .then((response) => res.send(response))
         .catch((err) => next(err));
 });

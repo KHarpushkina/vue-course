@@ -33,11 +33,7 @@
             </div>
         </div>
         <div class="container right-align-items">
-            <div>
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-            </div>
             <div class="nav-buttons">
-                <button class="btn btn-light">Search</button>
                 <button class="btn btn-outline-info" @click="toggleLoginModal(true)" v-if="!user.id">
                     Sign In
                 </button>

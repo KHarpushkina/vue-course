@@ -1,27 +1,31 @@
-import * as mongoose from 'mongoose';
+import * as mongoose from "mongoose";
 
 const articleSchema = new mongoose.Schema({
-    title : {
+    title: {
         type: String,
-        required: true
+        required: true,
     },
-    content : {
+    content: {
         type: String,
-        required: true
+        required: true,
     },
     _author: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: "User",
     },
-    last_updated : {
+    last_updated: {
         type: Date,
-        required: true
+        required: true,
     },
-    category : {
-        type: String,
-        required: false
-    }
+    _category: [
+        {
+            category: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Comment",
+            },
+        },
+    ],
 });
 
-const Article = mongoose.model('Article', articleSchema);
+const Article = mongoose.model("Article", articleSchema);
 export default Article;

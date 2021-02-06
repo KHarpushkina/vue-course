@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 import articlesModule from "./modules/articles/index.js";
 import authModule from "./modules/auth/index.js";
 import commentsModule from "./modules/comments/index.js";
+import categoriesModule from "./modules/categories/index.js";
 
 const store = createStore({
     state: () => ({
@@ -25,6 +26,7 @@ const store = createStore({
         articles: articlesModule,
         auth: authModule,
         comments: commentsModule,
+        categories: categoriesModule
     },
 });
 
