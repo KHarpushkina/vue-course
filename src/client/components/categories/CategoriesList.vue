@@ -26,11 +26,12 @@
                                 {{ category.name }}
                             </label>
                         </div>
-                        <div>
-                             <button type="button" class="btn btn-outline-primary" @click="addCategory">
-                            Add new category
+                    </div>
+                    <div v-if="!categoryMod">
+                        <div>Didn't find a suitable category?</div>
+                        <button type="button" class="btn btn-outline-primary" @click="changeCategoryMod(true)">
+                            Create new category 
                         </button>
-                        </div>
                     </div>
                     <div class="add-new-category-block" v-if="categoryMod">
                         <label for="name" class="form-label">Category Name</label>
@@ -45,7 +46,7 @@
                             placeholder="Enter your comment here"
                         ></textarea>
                         <button type="button" class="btn btn-outline-primary" @click="addCategory">
-                            Add new category
+                            Add
                         </button>
                     </div>
                 </div>
@@ -80,15 +81,20 @@ export default {
         },
     },
     methods: {
+        changeCategoryMod: function(value) {
+            this.categoryMod = value;
+        },
+
         addCategory: async function() {
             try {
-                await this.$store.dispatch("categories/addCategory", {
+                /* await this.$store.dispatch("categories/addCategory", {
                     category: {
                         name: "Big Data",
                         description: "Big Data",
                         last_updated: new Date(),
                     },
-                });
+                }); */
+                this.changeCategoryMod(false);
             } catch (e) {
                 console.log(e);
             }
@@ -113,8 +119,9 @@ export default {
     .categories-table {
         display: flex;
         flex-wrap: wrap;
+        flex-direction: column;
         div {
-            flex: 1 0 33%;
+           // flex: 1 0 33%;
             margin-bottom: 8px;
         }
     }

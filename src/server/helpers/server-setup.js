@@ -33,8 +33,8 @@ module.exports = {
         }
     },
 
-    async getDocuments(model, selectors = {}, fields = null, options = {}) {
-        let result = await model.find(selectors, fields, options).exec();
+    async getDocuments(model, selectors = {}, sortField = null, fields = null, options = {}) {
+        let result = await model.find(selectors, fields, options).sort(sortField).exec();
         if (result) {
             return result;
         } else {

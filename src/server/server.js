@@ -145,7 +145,7 @@ app.post("/delete-comment", (req, res, next) => {
 
 app.get("/categories", (req, res, next) => {
     serverSetup
-        .getDocuments(Category)
+        .getDocuments(Category, {}, "name")
         .then((response) => res.status(200).send(response))
         .catch((err) => next(err));
 });
