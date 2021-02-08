@@ -16,11 +16,11 @@
                 <div class="row category-block">
                     <div class="col">
                         <div class="form-label">
-                            <span
-                                ><button class="btn btn-secondary" @click="toggleCategoriesModal(true)">
+                            <span>
+                                <button class="btn btn-secondary" @click="toggleCategoriesModal(true)">
                                     Choose Category
-                                </button></span
-                            >
+                                </button>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,13 @@
                 </div>
             </div>
         </div>
-        <categories-list ref="categories-modal" @onToggle="toggleCategoriesModal"></categories-list>
+        <categories-list
+            ref="categories-modal"
+            :articleCategories="articleCategories"
+            @onToggle="toggleCategoriesModal"
+            @onChoose="chooseCategories"
+            modalHeader="Choose categories for your article"
+        ></categories-list>
     </div>
 </template>
 
@@ -94,7 +100,9 @@ export default {
                 _category: [],
             },
             pageHeader: "",
+            selectedCategories: [],
             categoriesListElement: null,
+            categoriesWasSelected: false
         };
     },
     computed: {
@@ -103,6 +111,12 @@ export default {
         },
         article: function() {
             return this.$store.getters["articles/getArticleById"](this.articleId);
+        },
+        articleCategories: function() {
+            if (this.article) {
+                return this.article._category;
+            }
+            return [];
         },
         authorFullName: function() {
             if (this.user) {
@@ -113,16 +127,38 @@ export default {
     },
     methods: {
         saveArticle: async function() {
-            this.newArticle.last_updated = new Date();
-            this.newArticle._author = this.user?.id || "";
             try {
+                let categories = [];
+                if (this.categoriesWasSelected) {
+                    categories = this.selectedCategories
+                } else if (this.article) {
+                    categories = this.article._category;
+                }
+                let article = {
+                    title: this.newArticle.title,
+                    content: this.newArticle.content,
+                    _author: this.user?.id || "",
+                    last_updated: new Date(),
+                    _category: categories,
+                };
+                if (this.article) {
+                    article._id = this.article._id;
+                }
                 await this.$store.dispatch("articles/addArticle", {
-                    article: this.newArticle,
+                    article,
                 });
                 this.closeEditing();
             } catch (e) {
                 console.log(e);
             }
+        },
+
+        chooseCategories: function(categories) {
+            this.selectedCategories = [];
+            for (let i = 0; i < categories.length; i++) {
+                this.selectedCategories.push(categories[i]._id);
+            }
+            this.categoriesWasSelected = true;
         },
 
         toggleCategoriesModal: function(show) {
@@ -166,5 +202,8 @@ export default {
     button {
         min-width: 84px;
     }
+}
+.article-content {
+    white-space: pre-wrap;
 }
 </style>

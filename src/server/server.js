@@ -81,7 +81,7 @@ app.post("/create-user", (req, res, next) => {
 app.get("/articles", (req, res, next) => {
     // serverSetup.checkUser(req.decoded.sub, res, () => {
     serverSetup
-        .populateQuery(Article, "_author _category.category")
+        .populateQuery(Article, "_author _category")
         .then((response) => res.status(200).send(response))
         .catch((err) => next(err));
     // });
@@ -98,7 +98,7 @@ app.post("/save-article", (req, res, next) => {
         serverSetup.getDocumentById(Article, req.body.article._id).then((article) => {
             article.title = req.body.article.title;
             article.content = req.body.article.content;
-            article.category = req.body.article.category;
+            article._category = req.body.article._category;
             article.last_updated = req.body.article.last_updated;
             serverSetup
                 .saveDocument(article)

@@ -11,8 +11,8 @@ import {
     faTimesCircle,
     faUser,
     faExclamationTriangle,
-    faMap,
-    faMapSigns
+    faMapSigns,
+    faInfoCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -26,7 +26,7 @@ library.add(faCheckCircle);
 library.add(faUser);
 library.add(faExclamationTriangle);
 library.add(faMapSigns);
-library.add(faMap);
+library.add(faInfoCircle);
 
 export default function(app) {
     app.component("font-awesome-icon", FontAwesomeIcon);

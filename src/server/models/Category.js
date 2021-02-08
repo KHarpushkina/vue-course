@@ -5,10 +5,6 @@ const categorySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    description: {
-        type: String,
-        required: false
-    },
     last_updated: {
         type: Date,
         required: false,

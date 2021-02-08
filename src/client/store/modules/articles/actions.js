@@ -36,37 +36,9 @@ export default {
                 {
                     toast: {
                         notificationType: "success",
-                        notificationMessage: "Article was successfully creared",
-                    },
-                },
-                { root: true }
-            );
-        } catch (e) {
-            context.commit(
-                "addNotification",
-                {
-                    toast: {
-                        notificationType: "error",
-                        notificationMessage: e.message,
-                    },
-                },
-                { root: true }
-            );
-        }
-    },
-
-    async editArticle(context, data) {
-        try {
-            let result = await requests.addArticle(data.article);
-            context.commit("addArticle", {
-                article: result.data,
-            });
-            context.commit(
-                "addNotification",
-                {
-                    toast: {
-                        notificationType: "success",
-                        notificationMessage: "Article was successfully modified",
+                        notificationMessage: data.article._id
+                            ? "Article was successfully modified"
+                            : "Article was successfully creared",
                     },
                 },
                 { root: true }

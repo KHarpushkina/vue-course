@@ -9,6 +9,11 @@
                     </div>
                 </div>
                 <span class="article-title">{{ article.title }}</span>
+                <div class="categories-block">
+                    <div>
+                        <span>{{ articleCategories }}</span>
+                    </div>
+                </div>
             </div>
             <div class="col-3 control-article-buttons" v-if="isAuthor">
                 <button class="btn btn-secondary" @click="goToPage('save_article', { articleId: article._id })">
@@ -22,7 +27,9 @@
             </div>
         </div>
         <div class="row">
-            {{ cutArticleContent(article.content) }}
+            <div class="col">
+                <p class="article-content">{{ cutArticleContent(article.content) }}</p>
+            </div>
         </div>
         <div class="row read-more-block">
             <div class="col-2">
@@ -110,12 +117,21 @@ export default {
                 ((date.getMinutes() + "").length === 1 ? "0" + date.getMinutes() : date.getMinutes())
             );
         },
+        articleCategories: function() {
+            let result = "";
+            for (let i = 0; i < this.article._category.length; i++) {
+                result = result + " " + this.article._category[i].name;
+            }
+            return result;
+        },
     },
     methods: {
         cutArticleContent(content) {
             let result = content.substring(0, 1000);
-            result = result.substring(0, result.lastIndexOf(" "));
-            return content;
+            if (result !== content) {
+                result += "..."
+            }
+            return result;
         },
 
         toggleConfirmationModal: function(show) {
@@ -165,11 +181,16 @@ export default {
     .author-block {
         display: flex;
         span {
-            margin-left: 12px;
+            margin-left: 1em;
         }
         span:nth-child(2) {
             color: var(--bs-secondary);
         }
+    }
+    .categories-block {
+        margin-top: 1em;
+        margin-left: 2em;
+        color: var(--bs-secondary);
     }
 }
 .read-more-block {
@@ -195,5 +216,8 @@ export default {
             margin-top: 4px;
         }
     }
+}
+.article-content {
+    white-space: pre-wrap;
 }
 </style>

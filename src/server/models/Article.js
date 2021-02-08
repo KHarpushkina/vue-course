@@ -19,10 +19,8 @@ const articleSchema = new mongoose.Schema({
     },
     _category: [
         {
-            category: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Comment",
-            },
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Category",
         },
     ],
 });
